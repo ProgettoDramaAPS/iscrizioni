@@ -6,7 +6,7 @@
 <title>Diventa socio — Drama APS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 
   /* ============================================
@@ -23,7 +23,7 @@
     --color-border: #E4E2DD;
     --color-error: #A6402F;
 
-    --font-display: 'Fraunces', Georgia, serif;
+    --font-display: 'Anton', Impact, sans-serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
     --radius: 3px;
@@ -46,6 +46,13 @@
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 64px 24px 96px;
+  }
+
+  .logo {
+    display: block;
+    height: 40px;
+    width: auto;
+    margin-bottom: 40px;
   }
 
   header.intro {
@@ -103,6 +110,30 @@
   }
 
   .field:last-child { margin-bottom: 0; }
+
+  /* Righe di campi affiancati (es. Città/CAP, Provincia/Paese) */
+  .field-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .field-row.two-even {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field-row .field {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 480px) {
+    .field-row,
+    .field-row.two-even {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
 
   label {
     display: block;
@@ -194,9 +225,10 @@
 
   button[type="submit"] {
     width: 100%;
-    padding: 14px 24px;
-    font-family: var(--font-body);
-    font-size: 15px;
+    padding: 16px 24px;
+    font-family: var(--font-display);
+    font-size: 17px;
+    letter-spacing: 0.02em;
     font-weight: 600;
     color: var(--color-surface);
     background: var(--color-ink);
@@ -251,6 +283,7 @@
 
   @media (max-width: 480px) {
     .page { padding: 40px 20px 64px; }
+    .logo { height: 32px; margin-bottom: 32px; }
     h1 { font-size: 32px; }
   }
 </style>
@@ -258,6 +291,8 @@
 <body>
 
 <div class="page">
+
+  <img src="logo.png" alt="Progetto Drama" class="logo">
 
   <header class="intro">
     <p class="eyebrow">Registro soci</p>
@@ -299,8 +334,30 @@
       <legend>Contatti</legend>
 
       <div class="field">
-        <label for="indirizzo">Indirizzo di residenza</label>
-        <input type="text" id="indirizzo" name="indirizzo" required autocomplete="street-address">
+        <label for="indirizzo">Indirizzo</label>
+        <input type="text" id="indirizzo" name="indirizzo" required autocomplete="address-line1" placeholder="Via/Piazza e numero civico">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="citta">Città</label>
+          <input type="text" id="citta" name="citta" required autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label for="cap">CAP</label>
+          <input type="text" id="cap" name="cap" required autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{4,10}" maxlength="10">
+        </div>
+      </div>
+
+      <div class="field-row two-even">
+        <div class="field">
+          <label for="provincia">Provincia <span class="optional">(facoltativo)</span></label>
+          <input type="text" id="provincia" name="provincia" autocomplete="address-level1" placeholder="es. RM">
+        </div>
+        <div class="field">
+          <label for="paese">Paese</label>
+          <input type="text" id="paese" name="paese" required autocomplete="country-name" value="Italia">
+        </div>
       </div>
 
       <div class="field">
@@ -381,7 +438,7 @@
       return;
     }
 
-    if (ENDPOINT_URL === "INCOLLA_QUI_URL_APPS_SCRIPT") {
+    if (ENDPOINT_URL === "https://script.google.com/macros/s/AKfycbxeEmlg1ZiD8Y98rugN0vFRqPzkiXn9CLXRjoLmc1v4vHb8lRbeHa_iNBzmumLQdkzRPg/exec") {
       errorMsg.textContent = "Il modulo non è ancora collegato al foglio (ENDPOINT_URL da configurare).";
       errorMsg.style.display = 'block';
       console.warn("ENDPOINT_URL non configurato: vedi ISTRUZIONI.md");
