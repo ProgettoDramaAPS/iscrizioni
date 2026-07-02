@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diventa socio — Drama APS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================
+     TOKEN DI STILE — modificate qui per applicare
+     l'identità Drama quando sarà pronta.
+     ============================================ */
+  :root {
+    --color-bg: #FAFAF8;
+    --color-surface: #FFFFFF;
+    --color-ink: #1A1A18;
+    --color-ink-muted: #6B6B64;
+    --color-accent: #4B5D52;
+    --color-accent-soft: #E7EBE6;
+    --color-border: #E4E2DD;
+    --color-error: #A6402F;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --radius: 3px;
+    --max-width: 640px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  header.intro {
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .intro p {
+    color: var(--color-ink-muted);
+    font-size: 16px;
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  /* Ogni sezione del form è trattata come una voce
+     di registro: riga verticale + etichetta laterale. */
+  fieldset {
+    border: none;
+    padding: 0 0 32px 20px;
+    margin: 0 0 32px;
+    border-left: 2px solid var(--color-border);
+  }
+
+  fieldset legend {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  label .optional {
+    font-weight: 400;
+    color: var(--color-ink-muted);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-ink);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    transition: border-color 0.15s ease;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+  }
+
+  input:invalid:not(:placeholder-shown) {
+    border-color: var(--color-error);
+  }
+
+  .hint {
+    font-size: 12px;
+    color: var(--color-ink-muted);
+    margin-top: 4px;
+  }
+
+  .consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .consent input[type="checkbox"] {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .consent label {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--color-ink-muted);
+    margin: 0;
+  }
+
+  details {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--color-ink-muted);
+  }
+
+  details summary {
+    cursor: pointer;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  details p {
+    margin: 10px 0 0;
+    line-height: 1.6;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 14px 24px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-surface);
+    background: var(--color-ink);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  button[type="submit"]:hover { opacity: 0.85; }
+  button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .form-msg {
+    font-size: 14px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    display: none;
+  }
+
+  .form-msg.error {
+    display: block;
+    background: #FBEBE8;
+    color: var(--color-error);
+  }
+
+  .success-panel {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+  }
+
+  .success-panel.visible { display: block; }
+
+  .success-panel h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 0 12px;
+  }
+
+  .success-panel p {
+    color: var(--color-ink-muted);
+    margin: 0;
+  }
+
+  form.hidden { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+
+  @media (max-width: 480px) {
+    .page { padding: 40px 20px 64px; }
+    h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="intro">
+    <p class="eyebrow">Registro soci</p>
+    <h1>Diventa socio di Drama APS</h1>
+    <p>Compila il modulo per iscriverti all'associazione. Ci vogliono circa due minuti.</p>
+  </header>
+
+  <form id="signup-form" novalidate>
+
+    <fieldset>
+      <legend>Dati anagrafici</legend>
+
+      <div class="field">
+        <label for="nome">Nome e cognome</label>
+        <input type="text" id="nome" name="nome" required autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="dataNascita">Data di nascita</label>
+        <input type="date" id="dataNascita" name="dataNascita" required>
+      </div>
+
+      <div class="field">
+        <label for="luogoNascita">Luogo di nascita</label>
+        <input type="text" id="luogoNascita" name="luogoNascita" required placeholder="Città, Provincia">
+      </div>
+
+      <div class="field">
+        <label for="codiceFiscale">Codice fiscale</label>
+        <input type="text" id="codiceFiscale" name="codiceFiscale" required
+               pattern="^[A-Za-z]{6}[0-9]{2}[A-Za-z][0-9]{2}[A-Za-z][0-9]{3}[A-Za-z]$"
+               maxlength="16" style="text-transform: uppercase;"
+               placeholder="RSSMRA80A01H501U">
+        <p class="hint">16 caratteri, formato standard.</p>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Contatti</legend>
+
+      <div class="field">
+        <label for="indirizzo">Indirizzo di residenza</label>
+        <input type="text" id="indirizzo" name="indirizzo" required autocomplete="street-address">
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label for="telefono">Telefono</label>
+        <input type="tel" id="telefono" name="telefono" required autocomplete="tel">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Motivazione</legend>
+
+      <div class="field">
+        <label for="motivazione">Come hai conosciuto Drama? <span class="optional">(facoltativo)</span></label>
+        <textarea id="motivazione" name="motivazione"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Privacy</legend>
+
+      <div class="field consent">
+        <input type="checkbox" id="consenso" name="consenso" required value="Acconsento">
+        <label for="consenso">
+          Ho letto l'informativa e acconsento al trattamento dei miei dati personali per finalità associative.
+          <details>
+            <summary>Leggi l'informativa</summary>
+            <p>
+              Drama APS tratta i dati raccolti con questo modulo esclusivamente per la gestione del rapporto associativo
+              (libro soci, comunicazioni relative alle attività dell'associazione, adempimenti di legge). I dati non
+              saranno ceduti a terzi per finalità commerciali. Puoi richiedere in qualsiasi momento accesso, rettifica
+              o cancellazione dei tuoi dati scrivendo all'associazione.
+            </p>
+          </details>
+        </label>
+      </div>
+    </fieldset>
+
+    <button type="submit" id="submit-btn">Invia iscrizione</button>
+    <div class="form-msg error" id="form-error">Qualcosa è andato storto. Controlla i campi e riprova.</div>
+
+  </form>
+
+  <div class="success-panel" id="success-panel">
+    <h2>Iscrizione ricevuta</h2>
+    <p>Grazie! Ti contatteremo a breve per confermare l'iscrizione.</p>
+  </div>
+
+</div>
+
+<script>
+  // ============================================
+  // Sostituire con l'URL del Web App di Apps Script
+  // ottenuto dopo il deployment (vedi ISTRUZIONI.md)
+  // ============================================
+  const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxeEmlg1ZiD8Y98rugN0vFRqPzkiXn9CLXRjoLmc1v4vHb8lRbeHa_iNBzmumLQdkzRPg/exec";
+
+  const form = document.getElementById('signup-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const errorMsg = document.getElementById('form-error');
+  const successPanel = document.getElementById('success-panel');
+
+  const cfInput = document.getElementById('codiceFiscale');
+  cfInput.addEventListener('input', () => {
+    cfInput.value = cfInput.value.toUpperCase();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    if (ENDPOINT_URL === "INCOLLA_QUI_URL_APPS_SCRIPT") {
+      errorMsg.textContent = "Il modulo non è ancora collegato al foglio (ENDPOINT_URL da configurare).";
+      errorMsg.style.display = 'block';
+      console.warn("ENDPOINT_URL non configurato: vedi ISTRUZIONI.md");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Invio in corso…";
+
+    const data = new URLSearchParams(new FormData(form));
+
+    try {
+      // mode: 'no-cors' è necessario per i Web App di Apps Script.
+      // Non possiamo leggere la risposta, quindi consideriamo riuscito
+      // ogni invio che non genera un errore di rete.
+      await fetch(ENDPOINT_URL, { method: 'POST', mode: 'no-cors', body: data });
+      form.classList.add('hidden');
+      successPanel.classList.add('visible');
+    } catch (err) {
+      errorMsg.textContent = "Errore di connessione. Controlla la rete e riprova.";
+      errorMsg.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Invia iscrizione";
+    }
+  });
+</script>
+
+</body>
+</html>
