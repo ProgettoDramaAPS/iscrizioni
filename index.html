@@ -185,6 +185,26 @@
     margin-top: 4px;
   }
 
+  /* Dichiarazione di adesione: sottotesto in corsivo. */
+  .declaration {
+    font-size: 12.5px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--color-ink-muted);
+    margin: 0;
+  }
+
+  .declaration strong {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--color-ink);
+  }
+
+  .declaration a {
+    color: var(--color-accent);
+    font-style: normal;
+  }
+
   .consent {
     display: flex;
     gap: 10px;
@@ -204,24 +224,139 @@
     font-weight: 400;
     color: var(--color-ink-muted);
     margin: 0;
+    line-height: 1.55;
   }
 
-  details {
-    margin-top: 8px;
-    font-size: 13px;
-    color: var(--color-ink-muted);
-  }
-
-  details summary {
-    cursor: pointer;
+  /* Pulsante-link che apre l'informativa. */
+  .link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
     color: var(--color-accent);
     font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
   }
 
-  details p {
-    margin: 10px 0 0;
-    line-height: 1.6;
+  .link-btn:hover { opacity: 0.8; }
+
+  /* ============================================
+     Finestra (modale) dell'informativa privacy
+     ============================================ */
+  .privacy-dialog {
+    border: none;
+    border-radius: var(--radius);
+    padding: 0;
+    max-width: 560px;
+    width: calc(100% - 32px);
+    max-height: 85vh;
+    overflow: hidden;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
   }
+
+  .privacy-dialog::backdrop {
+    background: rgba(26,26,24,0.55);
+  }
+
+  .privacy-dialog__inner {
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+  }
+
+  .privacy-dialog__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .privacy-dialog__head h2 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .privacy-dialog__close {
+    background: none;
+    border: none;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .privacy-dialog__close:hover { color: var(--color-ink); }
+
+  .privacy-content {
+    overflow-y: auto;
+    padding: 20px 24px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-ink);
+  }
+
+  .privacy-content h3 {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 22px 0 6px;
+  }
+
+  .privacy-content h3:first-child { margin-top: 0; }
+
+  .privacy-content p { margin: 0 0 10px; }
+
+  .privacy-content ul {
+    margin: 0 0 10px;
+    padding-left: 20px;
+  }
+
+  .privacy-content li { margin-bottom: 5px; }
+
+  .privacy-content a { color: var(--color-accent); }
+
+  .privacy-content .meta {
+    font-size: 12px;
+    color: var(--color-ink-muted);
+    font-style: italic;
+    margin-top: 20px;
+  }
+
+  .privacy-dialog__actions {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-accept {
+    padding: 11px 20px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-surface);
+    background: var(--color-accent);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .btn-accept:hover { opacity: 0.9; }
 
   button[type="submit"] {
     width: 100%;
@@ -381,26 +516,38 @@
     </fieldset>
 
     <fieldset>
+      <legend>Dichiarazione di adesione</legend>
+
+      <p class="declaration">
+        Inviando la richiesta il sottoscritto chiede di entrare a far parte dell'Associazione di Promozione
+        Sociale &ldquo;Progetto Drama&rdquo; per l'anno corrente in qualità di <strong>socio ordinario</strong>.
+        A tal fine dichiara di avere preso visione dello Statuto presente sul sito, di approvarlo in ogni sua
+        parte e di condividere i principi e le finalità dell'Associazione. Si impegna a versare la quota
+        associativa annuale di € 10,00, o altro valore durante eventi promozionali, in contanti o all'account
+        PayPal dell'Associazione (<a href="https://paypal.me/friesgo" target="_blank" rel="noopener">paypal.me/friesgo</a>).
+        Dichiara inoltre di esonerare l'Associazione Progetto Drama APS da ogni responsabilità per tutti i danni,
+        fisici e/o patrimoniali, che potranno derivare al sottoscritto dallo svolgimento delle attività organizzate
+        dall'associazione nel caso non siano diretta conseguenza di dolo o colpa grave dell'Associazione stessa.
+      </p>
+    </fieldset>
+
+    <fieldset>
       <legend>Privacy</legend>
 
       <div class="field consent">
-        <input type="checkbox" id="consenso" name="consenso" required value="Acconsento">
+        <input type="checkbox" id="consenso" name="consenso" required value="Presa visione e accettazione">
         <label for="consenso">
-          Ho letto l'informativa e acconsento al trattamento dei miei dati personali per finalità associative.
-          <details>
-            <summary>Leggi l'informativa</summary>
-            <p>
-              Drama APS tratta i dati raccolti con questo modulo esclusivamente per la gestione del rapporto associativo
-              (libro soci, comunicazioni relative alle attività dell'associazione, adempimenti di legge). I dati non
-              saranno ceduti a terzi per finalità commerciali. Puoi richiedere in qualsiasi momento accesso, rettifica
-              o cancellazione dei tuoi dati scrivendo all'associazione.
-            </p>
-          </details>
+          Dichiaro di aver preso visione dell'<button type="button" class="link-btn" id="open-privacy">informativa
+          sul trattamento dei dati personali</button> e di accettarne i contenuti, acconsentendo al trattamento
+          dei miei dati per le finalità ivi indicate.
         </label>
       </div>
     </fieldset>
 
-    <button type="submit" id="submit-btn">Invia iscrizione</button>
+    <!-- Traccia nel foglio quale versione dell'informativa è stata accettata -->
+    <input type="hidden" name="informativaVersione" value="2026-07-03">
+
+    <button type="submit" id="submit-btn">Invia richiesta</button>
     <div class="form-msg error" id="form-error">Qualcosa è andato storto. Controlla i campi e riprova.</div>
 
   </form>
@@ -411,6 +558,90 @@
   </div>
 
 </div>
+
+<!-- ============================================
+     Finestra informativa privacy (art. 13 GDPR)
+     ============================================ -->
+<dialog class="privacy-dialog" id="privacy-dialog">
+  <div class="privacy-dialog__inner">
+    <div class="privacy-dialog__head">
+      <h2>Informativa sul trattamento dei dati personali</h2>
+      <button type="button" class="privacy-dialog__close" id="close-privacy" aria-label="Chiudi">&times;</button>
+    </div>
+
+    <div class="privacy-content">
+      <p>Ai sensi degli artt. 13 e 14 del Regolamento UE 2016/679 (&ldquo;GDPR&rdquo;), la informiamo su come sono
+      trattati i dati personali forniti tramite il presente modulo di iscrizione.</p>
+
+      <h3>1. Titolare del trattamento</h3>
+      <p>Titolare del trattamento è l'<strong>Associazione di Promozione Sociale &ldquo;Progetto Drama&rdquo;</strong>,
+      con sede legale in Via Giovanni Caselli 39, 00149 Roma (RM), C.F. 96653370583, e-mail
+      <a href="mailto:progettodrama.aps@gmail.com">progettodrama.aps@gmail.com</a>.</p>
+
+      <h3>2. Responsabile della protezione dei dati (RPD/DPO)</h3>
+      <p>L'Associazione non ha nominato un RPD, non ricorrendo i presupposti dell'art. 37 GDPR. Per ogni richiesta
+      è possibile contattare il Titolare ai recapiti sopra indicati.</p>
+
+      <h3>3. Categorie di dati raccolti</h3>
+      <p>Nome e cognome, data e luogo di nascita, codice fiscale, indirizzo di residenza, e-mail, telefono e,
+      in via facoltativa, la modalità con cui si è conosciuta l'Associazione.</p>
+
+      <h3>4. Finalità e base giuridica</h3>
+      <ul>
+        <li><strong>a)</strong> Iscrizione al libro soci e gestione del rapporto associativo — esecuzione di misure
+        connesse al rapporto associativo (art. 6.1.b GDPR).</li>
+        <li><strong>b)</strong> Adempimenti contabili, fiscali e amministrativi — obbligo legale (art. 6.1.c GDPR).</li>
+        <li><strong>c)</strong> Comunicazioni ai soci su attività, iniziative ed eventi dell'Associazione —
+        legittimo interesse (art. 6.1.f GDPR).</li>
+        <li><strong>d)</strong> Eventuali comunicazioni promozionali ulteriori — solo previo consenso specifico e
+        distinto, revocabile in qualsiasi momento (art. 6.1.a GDPR).</li>
+      </ul>
+
+      <h3>5. Natura del conferimento</h3>
+      <p>Il conferimento dei dati obbligatori è necessario per perfezionare l'iscrizione; il mancato conferimento
+      non consente di darvi seguito. I dati facoltativi sono a libera scelta dell'interessato.</p>
+
+      <h3>6. Modalità e conservazione</h3>
+      <p>Il trattamento avviene con strumenti informatici e misure adeguate ex art. 32 GDPR. I dati sono conservati
+      per la durata dell'iscrizione (finalità a); per 10 anni per gli obblighi contabili e fiscali (finalità b);
+      fino a revoca del consenso (finalità d).</p>
+
+      <h3>7. Destinatari</h3>
+      <p>I dati possono essere trattati da soci del direttivo e volontari autorizzati, da consulenti (es.
+      commercialista) e da fornitori di servizi informatici quali responsabili del trattamento ex art. 28 GDPR,
+      in particolare <strong>Google LLC / Google Ireland Ltd</strong> (Google Workspace, Sheets e Apps Script per la
+      raccolta e l'archiviazione dei dati) e <strong>GitHub, Inc. (Microsoft Corp.)</strong> per l'hosting del modulo
+      (GitHub Pages), oltre a enti pubblici e autorità nei casi previsti dalla legge.</p>
+
+      <h3>8. Trasferimento verso Paesi extra-UE</h3>
+      <p>I fornitori di cui al punto 7 hanno sede negli USA e possono trattare i dati fuori dallo Spazio Economico
+      Europeo. Il trasferimento avviene nel rispetto degli artt. 44 e ss. GDPR, sulla base dell'adesione di tali
+      fornitori all'<strong>EU-U.S. Data Privacy Framework</strong> (adeguatezza riconosciuta dalla Commissione UE
+      il 10.07.2023) e/o delle <strong>Clausole Contrattuali Standard</strong> approvate dalla Commissione UE.
+      Copia delle garanzie è disponibile scrivendo al Titolare.</p>
+
+      <h3>9. Processo decisionale automatizzato</h3>
+      <p>L'Associazione non adotta processi decisionali automatizzati né profilazione (art. 22 GDPR).</p>
+
+      <h3>10. Diritti dell'interessato</h3>
+      <p>Nei limiti degli artt. 15-22 GDPR, l'interessato può esercitare i diritti di accesso, rettifica,
+      cancellazione, limitazione, portabilità e opposizione, nonché revocare in qualsiasi momento il consenso
+      eventualmente prestato (art. 7.3).</p>
+
+      <h3>11. Esercizio dei diritti e reclamo</h3>
+      <p>I diritti si esercitano scrivendo a <a href="mailto:progettodrama.aps@gmail.com">progettodrama.aps@gmail.com</a>
+      o all'indirizzo della sede legale. L'interessato ha inoltre diritto di proporre reclamo al
+      <strong>Garante per la Protezione dei Dati Personali</strong> (Piazza Venezia 11, 00187 Roma —
+      <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>).</p>
+
+      <p class="meta">Informativa aggiornata al 3 luglio 2026.</p>
+    </div>
+
+    <div class="privacy-dialog__actions">
+      <button type="button" class="btn-accept" id="accept-privacy">Ho letto e accetto</button>
+    </div>
+  </div>
+</dialog>
 
 <script>
   // ============================================
@@ -429,6 +660,40 @@
     cfInput.value = cfInput.value.toUpperCase();
   });
 
+  // --- Finestra informativa privacy ---
+  const privacyDialog = document.getElementById('privacy-dialog');
+  const openPrivacy = document.getElementById('open-privacy');
+  const closePrivacy = document.getElementById('close-privacy');
+  const acceptPrivacy = document.getElementById('accept-privacy');
+  const consenso = document.getElementById('consenso');
+
+  function showPrivacy() {
+    if (typeof privacyDialog.showModal === 'function') {
+      privacyDialog.showModal();
+    } else {
+      privacyDialog.setAttribute('open', '');
+    }
+  }
+  function hidePrivacy() {
+    if (typeof privacyDialog.close === 'function') {
+      privacyDialog.close();
+    } else {
+      privacyDialog.removeAttribute('open');
+    }
+  }
+
+  openPrivacy.addEventListener('click', showPrivacy);
+  closePrivacy.addEventListener('click', hidePrivacy);
+  acceptPrivacy.addEventListener('click', () => {
+    consenso.checked = true;   // spunta la casella obbligatoria
+    hidePrivacy();
+  });
+  // Chiusura cliccando sullo sfondo scuro
+  privacyDialog.addEventListener('click', (e) => {
+    if (e.target === privacyDialog) hidePrivacy();
+  });
+
+  // --- Invio del modulo ---
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     errorMsg.style.display = 'none';
@@ -438,7 +703,7 @@
       return;
     }
 
-    if (ENDPOINT_URL === "https://script.google.com/macros/s/AKfycbxeEmlg1ZiD8Y98rugN0vFRqPzkiXn9CLXRjoLmc1v4vHb8lRbeHa_iNBzmumLQdkzRPg/exec") {
+    if (!ENDPOINT_URL || ENDPOINT_URL.indexOf("script.google.com") === -1) {
       errorMsg.textContent = "Il modulo non è ancora collegato al foglio (ENDPOINT_URL da configurare).";
       errorMsg.style.display = 'block';
       console.warn("ENDPOINT_URL non configurato: vedi ISTRUZIONI.md");
@@ -461,10 +726,10 @@
       errorMsg.textContent = "Errore di connessione. Controlla la rete e riprova.";
       errorMsg.style.display = 'block';
       submitBtn.disabled = false;
-      submitBtn.textContent = "Invia iscrizione";
+      submitBtn.textContent = "Invia richiesta";
     }
   });
 </script>
 
 </body>
-</html> 
+</html>
